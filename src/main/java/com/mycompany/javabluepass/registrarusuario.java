@@ -8,11 +8,25 @@ import java.io.IOException;
 import java.sql.*;
 import javax.servlet.ServletException;
 
+/**
+ * Clase de acceso a datos (DAO) para la gestión de usuarios/empleados.
+ * Contiene la lógica para registrar nuevos empleados y realizar búsquedas 
+ * en la base de datos bd_bluepass.
+ * * @author Valentina Ramos
+ */
 public class registrarusuario {
 
-    // Instancia de tu clase de conexión
+    /** Instancia global para gestionar la conexión con el servidor MySQL */
     Conexionjava con = new Conexionjava();
 
+    /**
+     * Registra un nuevo empleado en la tabla 'empleado'.
+     * Utiliza un PreparedStatement para prevenir inyecciones SQL y asegurar la integridad de los datos.
+     * * @param empleado Objeto de tipo registroempleado con la información a persistir.
+     * @return boolean True si el registro fue exitoso (filas afectadas > 0), False en caso contrario.
+     * @throws IOException Si ocurre un error de entrada/salida.
+     * @throws ServletException Si hay fallos en la conexión o errores en la ejecución de la sentencia SQL.
+     */
     public boolean agregarEmpleado(registroempleado empleado) throws IOException, ServletException {
         // 1. Intentar obtener la conexión
         Connection connn = con.conectar();
@@ -30,6 +44,7 @@ public class registrarusuario {
 
         try (Connection conn = con.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
+            // Mapeo de parámetros del objeto empleado al PreparedStatement
             ps.setString(1, empleado.getCedula());
             ps.setString(2, empleado.getPrimer_nombre());
             ps.setString(3, empleado.getSegundo_nombre());
@@ -49,6 +64,12 @@ public class registrarusuario {
         }
     }
 
+    /**
+     * Realiza una consulta en la base de datos para encontrar un empleado por su número de cédula.
+     * * @param cedula El número de documento a buscar.
+     * @return registroempleado El objeto poblado con los datos de la DB, o null si no se encuentra coincidencia.
+     * @throws ServletException Si la conexión falla o hay un error de sintaxis en la consulta.
+     */
     public registroempleado buscarPorCedula(String cedula) throws ServletException {
         registroempleado empleado = null;
         String sql = "SELECT * FROM empleado WHERE cedula = ?";
@@ -64,7 +85,7 @@ public class registrarusuario {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    // 2. Si existe, creamos el objeto y lo llenamos
+                    // 2. Si existe, creamos el objeto y lo llenamos con los datos del ResultSet
                     empleado = new registroempleado();
                     empleado.setCedula(rs.getString("cedula"));
                     empleado.setPrimer_nombre(rs.getString("primer_nombre"));
@@ -80,11 +101,13 @@ public class registrarusuario {
         } catch (SQLException e) {
             throw new ServletException("Error en la consulta SQL: " + e.getMessage());
         } finally {
+            // Cierre preventivo de la conexión para evitar fugas de recursos (Memory Leaks)
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException e) {
+                // Error silencioso al cerrar la conexión
             }
         }
 
