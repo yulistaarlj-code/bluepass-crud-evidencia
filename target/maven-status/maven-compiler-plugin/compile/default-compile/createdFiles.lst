@@ -1,4 +1,5 @@
-com\mycompany\javabluepass\servletusuario.class
+com\mycompany\javabluepass\ServletRegistro.class
+com\mycompany\javabluepass\ServletBusqueda.class
 com\mycompany\javabluepass\registroempleado.class
 com\mycompany\javabluepass\Conexionjava.class
 com\mycompany\javabluepass\registrarusuario.class

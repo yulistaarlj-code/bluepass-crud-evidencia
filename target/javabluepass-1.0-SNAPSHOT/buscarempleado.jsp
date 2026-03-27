@@ -123,7 +123,7 @@
 
         <div class="search-card">
             <h2>Buscador de Personal</h2>
-            <form action="servletusuario" method="GET">
+            <form action="buscarusuario" method="GET">
                 <div class="form-group">
                     <input type="text" name="txtCedulaBusca" placeholder="Ingrese Cédula..." required>
                     <button type="submit" class="btn-search">BUSCAR</button>

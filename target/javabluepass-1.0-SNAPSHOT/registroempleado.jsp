@@ -93,8 +93,7 @@
         <div class="form-container">
             <h2>Registro de Empleado</h2>
 
-            <form action="servletusuario" method="POST">
-                <!<!-- <form action="servletusuario" method="POST"> -->
+            <form action="registrarusuario" method="POST">
                 <div class="form-group">
                     <div class="full-width">
                         <label>Cédula:</label>

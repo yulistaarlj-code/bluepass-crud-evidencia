@@ -108,7 +108,7 @@
         <div class="search-container">
             <h2>Buscar Empleado</h2>
             
-            <form action="servletusuario" method="GET">
+            <form action="buscarusuario" method="GET">
                 <label>Número de Cédula:</label>
                 <input type="text" name="txtCedulaBusca" placeholder="Ingrese la cédula a consultar" required>
                 
