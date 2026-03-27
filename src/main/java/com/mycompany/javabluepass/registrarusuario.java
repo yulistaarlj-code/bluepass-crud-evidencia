@@ -7,25 +7,34 @@ package com.mycompany.javabluepass;
 import java.io.IOException;
 import java.sql.*;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * Clase de acceso a datos (DAO) para la gestión de usuarios/empleados.
- * Contiene la lógica para registrar nuevos empleados y realizar búsquedas 
- * en la base de datos bd_bluepass.
+ * Clase de acceso a datos (DAO) para la gestión de usuarios/empleados. Contiene
+ * la lógica para registrar nuevos empleados y realizar búsquedas en la base de
+ * datos bd_bluepass.
+ *
  * * @author Valentina Ramos
  */
 public class registrarusuario {
 
-    /** Instancia global para gestionar la conexión con el servidor MySQL */
+    /**
+     * Instancia global para gestionar la conexión con el servidor MySQL
+     */
     Conexionjava con = new Conexionjava();
 
     /**
-     * Registra un nuevo empleado en la tabla 'empleado'.
-     * Utiliza un PreparedStatement para prevenir inyecciones SQL y asegurar la integridad de los datos.
-     * * @param empleado Objeto de tipo registroempleado con la información a persistir.
-     * @return boolean True si el registro fue exitoso (filas afectadas > 0), False en caso contrario.
+     * Registra un nuevo empleado en la tabla 'empleado'. Utiliza un
+     * PreparedStatement para prevenir inyecciones SQL y asegurar la integridad
+     * de los datos.
+     *
+     * * @param empleado Objeto de tipo registroempleado con la información a
+     * persistir.
+     * @return boolean True si el registro fue exitoso (filas afectadas > 0),
+     * False en caso contrario.
      * @throws IOException Si ocurre un error de entrada/salida.
-     * @throws ServletException Si hay fallos en la conexión o errores en la ejecución de la sentencia SQL.
+     * @throws ServletException Si hay fallos en la conexión o errores en la
+     * ejecución de la sentencia SQL.
      */
     public boolean agregarEmpleado(registroempleado empleado) throws IOException, ServletException {
         // 1. Intentar obtener la conexión
@@ -65,10 +74,14 @@ public class registrarusuario {
     }
 
     /**
-     * Realiza una consulta en la base de datos para encontrar un empleado por su número de cédula.
+     * Realiza una consulta en la base de datos para encontrar un empleado por
+     * su número de cédula.
+     *
      * * @param cedula El número de documento a buscar.
-     * @return registroempleado El objeto poblado con los datos de la DB, o null si no se encuentra coincidencia.
-     * @throws ServletException Si la conexión falla o hay un error de sintaxis en la consulta.
+     * @return registroempleado El objeto poblado con los datos de la DB, o null
+     * si no se encuentra coincidencia.
+     * @throws ServletException Si la conexión falla o hay un error de sintaxis
+     * en la consulta.
      */
     public registroempleado buscarPorCedula(String cedula) throws ServletException {
         registroempleado empleado = null;
